@@ -1,0 +1,31 @@
+import { useState } from 'react'
+import axios from "axios";
+import React, { useEffect } from "react";
+
+function Ageapi() {
+
+const[name,setName]=useState("")
+const[User,setUser]=useState("")
+
+    const handleChange=(event) =>{
+        setName(event.target.value);
+      }
+    const fetchData = () =>{
+        return axios.get(`https://api.agify.io/?name=${name}`)
+              .then((res) => setUser(res.data.age));
+             
+    }
+    useEffect(() => {
+        fetchData();
+      },[])
+
+  return (
+    <div>
+      <input placeholder='enter your name' onChange={handleChange}></input>
+      <button onClick={fetchData}>Generate age</button>
+      <p>Predicted age of {name} is {User}</p>
+    </div>
+  )
+}
+
+export default Ageapi
