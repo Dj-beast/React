@@ -1,0 +1,54 @@
+import { useState } from 'react'
+import axios from "axios";
+import React, { useEffect } from "react";
+
+function ExcuseApi() {
+
+    const[party,setparty]=useState("")
+    const[office,setOffice]=useState("")
+    const[home,setHome]=useState("")
+
+
+
+const partyExcuse =()=>{
+    return axios.get("https://catfact.ninja/fact")
+    .then((res) => setparty(res.data.fact));
+}
+useEffect(() => {
+    partyExcuse();
+  },[])
+const homeExcuse =()=>{
+    return axios.get("https://catfact.ninja/fact")
+    .then((res) => setHome(res.data.fact));
+}
+useEffect(() => {
+  homeExcuse();
+  },[])
+const officeExcuse=()=>{
+    return axios.get("https://catfact.ninja/fact")
+    .then((res) => setOffice(res.data.fact));
+}        
+useEffect(() => {
+    officeExcuse();
+  },[])
+
+  return (
+    <div>
+        <h1>Generate Excuse</h1>
+        <div>
+      Generate Excuse For Party:<button onClick={partyExcuse}>Party Excuse</button>
+<p>{party}</p>
+      </div>
+      <div>
+      Generate Excuse For Home:<button onClick={homeExcuse}>Home Excuse</button>
+<p>{office}</p>
+      </div>
+      <div>
+      Generate Excuse For office<button onClick={officeExcuse}>Office Excuse</button>
+      <p>{home}</p>
+      </div>
+    </div>
+  )
+}
+
+export default ExcuseApi
